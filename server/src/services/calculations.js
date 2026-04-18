@@ -14,7 +14,7 @@ const calculateBMI = (weight, height) => {
 };
 
 /**
- * Calculate BMR using Mifflin-St Jeor equation
+ * Calculate BMR using Harris-Benedict formula
  * @param {number} weight - Weight in kg
  * @param {number} height - Height in cm
  * @param {number} age - Age in years
@@ -23,9 +23,9 @@ const calculateBMI = (weight, height) => {
  */
 const calculateBMR = (weight, height, age, gender) => {
     if (gender.toLowerCase() === 'male') {
-        return Math.round((10 * weight) + (6.25 * height) - (5 * age) + 5);
+        return Math.round(88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age));
     } else {
-        return Math.round((10 * weight) + (6.25 * height) - (5 * age) - 161);
+        return Math.round(447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age));
     }
 };
 

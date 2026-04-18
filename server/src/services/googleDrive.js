@@ -82,7 +82,7 @@ class GoogleDriveService {
 
             fs.writeFileSync(localPath, pdfBuffer);
             console.log(`Report saved locally: ${localPath}`);
-            return { localPath, webViewLink: '#' };
+            return { localPath, webViewLink: `http://localhost:3001/reports/${filename}` };
         }
 
         try {

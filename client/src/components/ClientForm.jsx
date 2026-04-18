@@ -47,26 +47,81 @@ export default function ClientForm() {
                 <div className="w-20 h-20 bg-primary-blue/20 rounded-full flex items-center justify-center mx-auto mb-6 shadow-neon">
                     <CheckCircle2 size={40} className="text-primary-blue" />
                 </div>
-                <h2 className="text-3xl font-bold mb-2 font-heading">Assessment Complete!</h2>
-                <p className="text-white/60 mb-8">Your personalized report has been generated and sent to {formData.email}.</p>
+                <h2 className="text-3xl font-bold mb-2 font-heading">Protocol Generated</h2>
+                <p className="text-white/60 mb-8">Your specialized assessment has been processed. A copy was sent to {formData.email}.</p>
 
-                <div className="grid grid-cols-2 gap-4 mb-8">
-                    <div className="p-4 bg-white/5 rounded-2xl border border-white/10">
-                        <p className="text-xs text-white/40 uppercase tracking-widest mb-1">BMI</p>
-                        <p className="text-2xl font-bold text-primary-blue">{result.calculations.bmi}</p>
+                {/* Vital Stats */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div className="p-4 bg-white/5 rounded-2xl border border-white/10 hover:border-primary-blue/50 transition-colors">
+                        <p className="text-xs text-white/40 uppercase tracking-widest mb-1" title="Body Mass Index">BMI</p>
+                        <p className="text-2xl font-bold text-primary-cyan">{result.calculations.bmi}</p>
                     </div>
-                    <div className="p-4 bg-white/5 rounded-2xl border border-white/10">
-                        <p className="text-xs text-white/40 uppercase tracking-widest mb-1">TDEE</p>
-                        <p className="text-2xl font-bold text-primary-purple">{result.calculations.tdee} kcal</p>
+                    <div className="p-4 bg-white/5 rounded-2xl border border-white/10 hover:border-primary-purple/50 transition-colors">
+                        <p className="text-xs text-white/40 uppercase tracking-widest mb-1" title="Basal Metabolic Rate">BMR</p>
+                        <p className="text-2xl font-bold text-white">{result.calculations.bmr} <span className="text-xs font-normal text-white/40 tracking-normal">kcal</span></p>
+                    </div>
+                    <div className="p-4 bg-white/5 rounded-2xl border border-white/10 hover:border-primary-pink/50 transition-colors">
+                        <p className="text-xs text-white/40 uppercase tracking-widest mb-1" title="Total Daily Energy Expenditure">TDEE</p>
+                        <p className="text-2xl font-bold text-white">{result.calculations.tdee} <span className="text-xs font-normal text-white/40 tracking-normal">kcal</span></p>
+                    </div>
+                    <div className="p-4 bg-gradient-to-br from-primary-blue/20 to-primary-purple/20 rounded-2xl border border-primary-blue/30 shadow-neon">
+                        <p className="text-xs text-primary-blue uppercase tracking-widest mb-1 font-bold">Target</p>
+                        <p className="text-2xl font-bold text-white">{result.calculations.calories} <span className="text-xs font-normal text-white/60 tracking-normal">kcal</span></p>
                     </div>
                 </div>
 
-                <button
-                    onClick={() => setStatus('idle')}
-                    className="w-full py-4 bg-gradient-to-r from-primary-blue to-primary-purple rounded-xl font-bold hover:opacity-90 transition-all"
-                >
-                    New Assessment
-                </button>
+                {/* Macro Breakdown */}
+                <div className="mb-8 p-6 bg-[#1a1a1c] border border-white/5 rounded-3xl relative overflow-hidden group">
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary-blue/5 via-primary-purple/5 to-primary-pink/5 opacity-50 z-0"></div>
+                    <div className="relative z-10">
+                        <h4 className="text-left text-sm font-bold font-heading uppercase text-white/70 mb-4 flex items-center gap-2">
+                            <ActivityIcon size={16} className="text-primary-pink" /> 
+                            Daily Macro-Nutrient Split
+                        </h4>
+                        <div className="grid grid-cols-3 gap-3">
+                            <div className="flex flex-col items-center p-3 rounded-xl bg-black/40 border border-white/5">
+                                <p className="text-2xl font-bold text-primary-blue mb-1">{result.calculations.macros.protein}<span className="text-sm">g</span></p>
+                                <p className="text-[10px] uppercase text-white/40 font-bold tracking-wider">Protein</p>
+                                <div className="w-full h-1 bg-white/10 rounded-full mt-3 overflow-hidden">
+                                    <motion.div initial={{width:0}} animate={{width:'40%'}} className="h-full bg-primary-blue" transition={{delay: 0.2, duration: 0.8}} />
+                                </div>
+                            </div>
+                            <div className="flex flex-col items-center p-3 rounded-xl bg-black/40 border border-white/5">
+                                <p className="text-2xl font-bold text-primary-purple mb-1">{result.calculations.macros.carbs}<span className="text-sm">g</span></p>
+                                <p className="text-[10px] uppercase text-white/40 font-bold tracking-wider">Carbs</p>
+                                <div className="w-full h-1 bg-white/10 rounded-full mt-3 overflow-hidden">
+                                    <motion.div initial={{width:0}} animate={{width:'35%'}} className="h-full bg-primary-purple" transition={{delay: 0.4, duration: 0.8}} />
+                                </div>
+                            </div>
+                            <div className="flex flex-col items-center p-3 rounded-xl bg-black/40 border border-white/5">
+                                <p className="text-2xl font-bold text-primary-pink mb-1">{result.calculations.macros.fats}<span className="text-sm">g</span></p>
+                                <p className="text-[10px] uppercase text-white/40 font-bold tracking-wider">Fats</p>
+                                <div className="w-full h-1 bg-white/10 rounded-full mt-3 overflow-hidden">
+                                    <motion.div initial={{width:0}} animate={{width:'25%'}} className="h-full bg-primary-pink" transition={{delay: 0.6, duration: 0.8}} />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {result.reportUrl && result.reportUrl !== 'local' && result.reportUrl !== '#' && (
+                        <a 
+                            href={result.reportUrl} 
+                            target="_blank" 
+                            rel="noreferrer"
+                            className="flex items-center justify-center gap-2 w-full py-4 bg-white/5 border border-white/20 rounded-xl font-bold hover:bg-white/10 transition-all text-white"
+                        >
+                            <User size={18} /> View PDF Report
+                        </a>
+                    )}
+                    <button
+                        onClick={() => setStatus('idle')}
+                        className={`w-full py-4 bg-gradient-to-r from-primary-blue to-primary-purple rounded-xl font-bold hover:opacity-90 transition-all flex items-center justify-center gap-2 ${(result.reportUrl && result.reportUrl !== 'local' && result.reportUrl !== '#') ? '' : 'md:col-span-2'}`}
+                    >
+                        <Target size={18} /> New Assessment
+                    </button>
+                </div>
             </motion.div>
         )
     }

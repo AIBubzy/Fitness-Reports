@@ -14,6 +14,7 @@ const PORT = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(express.json());
+app.use('/reports', express.static(path.join(__dirname, '../reports')));
 app.use('/', authRouter);
 
 // Initialize services
