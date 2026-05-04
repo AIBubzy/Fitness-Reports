@@ -35,24 +35,24 @@ const getMealPlan = (goal) => {
 const getTrainingPlan = (goal) => {
     if (goal === 'muscle_gain' || goal === 'performance') {
         return [
-            { day: 'Day 1 \u2013 Chest & Triceps', exercises: [['Bench Press (Compound)', '4', '6-8', '90s'], ['Incline Dumbbell Press (Compound)', '4', '8-10', '75s'], ['Tricep Pushdowns (Isolation)', '3', '12-15', '60s']] },
-            { day: 'Day 2 \u2013 Back & Biceps', exercises: [['Deadlift (Compound)', '4', '5-6', '120s'], ['Lat Pulldown (Compound)', '4', '8-10', '75s'], ['Dumbbell Curls (Isolation)', '3', '12-15', '60s']] },
-            { day: 'Day 3 \u2013 Legs', exercises: [['Squats (Compound)', '4', '6-8', '120s'], ['Romanian Deadlift (Compound)', '4', '8-10', '90s'], ['Leg Extensions (Isolation)', '3', '12-15', '60s']] },
-            { day: 'Day 4 \u2013 Active Recovery & Core', exercises: [['Plank', '3', '60s', '45s'], ['Russian Twists', '3', '20 reps', '45s'], ['Light Jogging or Walking', '1', '30 mins', 'N/A']] },
-            { day: 'Day 5 \u2013 Shoulders & Arms', exercises: [['Overhead Press (Compound)', '4', '6-8', '90s'], ['Lateral Raises (Isolation)', '3', '12-15', '60s'], ['Hammer Curls (Isolation)', '3', '10-12', '60s']] },
-            { day: 'Day 6 \u2013 Full Body Power', exercises: [['Power Cleans', '4', '5', '120s'], ['Pull-Ups', '3', 'AMRAP', '90s'], ['Dumbbell Lunges', '3', '10/leg', '60s']] },
-            { day: 'Day 7 \u2013 Complete Rest', exercises: [['Rest & Mobility Work', '-', '-', '-']] }
+            { day: 'Day 1 \u2013 Chest & Triceps', headers: ['Exercise', 'Sets', 'Reps', 'Rest'], exercises: [['Bench Press (Compound)', '4', '6-8', '90s'], ['Incline Dumbbell Press (Compound)', '4', '8-10', '75s'], ['Tricep Pushdowns (Isolation)', '3', '12-15', '60s']] },
+            { day: 'Day 2 \u2013 Back & Biceps', headers: ['Exercise', 'Sets', 'Reps', 'Rest'], exercises: [['Deadlift (Compound)', '4', '5-6', '120s'], ['Lat Pulldown (Compound)', '4', '8-10', '75s'], ['Dumbbell Curls (Isolation)', '3', '12-15', '60s']] },
+            { day: 'Day 3 \u2013 Legs', headers: ['Exercise', 'Sets', 'Reps', 'Rest'], exercises: [['Squats (Compound)', '4', '6-8', '120s'], ['Romanian Deadlift (Compound)', '4', '8-10', '90s'], ['Leg Extensions (Isolation)', '3', '12-15', '60s']] },
+            { day: 'Day 4 \u2013 Active Recovery & Core', headers: ['Activity', 'Duration', 'Notes'], exercises: [['Plank', '60s', 'Slow, controlled'], ['Russian Twists', '20 reps', 'Tight core'], ['Light Jogging or Walking', '30 mins', 'Zone 2 Cardio']] },
+            { day: 'Day 5 \u2013 Shoulders & Arms', headers: ['Exercise', 'Sets', 'Reps', 'Rest'], exercises: [['Overhead Press (Compound)', '4', '6-8', '90s'], ['Lateral Raises (Isolation)', '3', '12-15', '60s'], ['Hammer Curls (Isolation)', '3', '10-12', '60s']] },
+            { day: 'Day 6 \u2013 Full Body Power', headers: ['Exercise', 'Sets', 'Reps', 'Rest'], exercises: [['Power Cleans', '4', '5', '120s'], ['Pull-Ups', '3', 'AMRAP', '90s'], ['Dumbbell Lunges', '3', '10/leg', '60s']] },
+            { day: 'Day 7 \u2013 Complete Rest', headers: ['Activity', 'Duration', 'Notes'], exercises: [['Rest & Mobility Work', '-', '-']] }
         ];
     }
     // Default Weight Loss / General
     return [
-        { day: 'Day 1 \u2013 Full Body Circuit', exercises: [['Goblet Squats', '3', '15', '45s'], ['Push-ups', '3', '12-15', '45s'], ['Dumbbell Rows', '3', '15', '45s']] },
-        { day: 'Day 2 \u2013 Cardio & Core', exercises: [['HIIT Treadmill Sprints', '1', '20 mins', 'N/A'], ['Plank', '3', '45s', '30s'], ['Bicycle Crunches', '3', '20', '30s']] },
-        { day: 'Day 3 \u2013 Lower Body Focus', exercises: [['Lunges', '3', '12/leg', '60s'], ['Glute Bridges', '3', '15', '45s'], ['Leg Press', '3', '12-15', '60s']] },
-        { day: 'Day 4 \u2013 Active Recovery', exercises: [['Yoga or Pilates', '1', '40 mins', 'N/A'], ['Brisk Walk', '1', '30 mins', 'N/A']] },
-        { day: 'Day 5 \u2013 Upper Body Focus', exercises: [['Dumbbell Bench Press', '3', '12-15', '60s'], ['Lat Pulldowns', '3', '12-15', '60s'], ['Shoulder Press', '3', '12-15', '45s']] },
-        { day: 'Day 6 \u2013 High Intensity Cardio', exercises: [['Rowing Machine or Cycling', '1', '30 mins', 'N/A'], ['Burpees', '3', '10', '45s']] },
-        { day: 'Day 7 \u2013 Complete Rest', exercises: [['Rest & Hydration', '-', '-', '-']] }
+        { day: 'Day 1 \u2013 Full Body Circuit', headers: ['Exercise', 'Sets', 'Reps', 'Rest'], exercises: [['Goblet Squats', '3', '15', '45s'], ['Push-ups', '3', '12-15', '45s'], ['Dumbbell Rows', '3', '15', '45s']] },
+        { day: 'Day 2 \u2013 Cardio & Core', headers: ['Activity', 'Duration', 'Notes'], exercises: [['HIIT Sprints', '20 mins', 'Max effort'], ['Plank', '45s', '3 sets'], ['Crunches', '20 reps', '3 sets']] },
+        { day: 'Day 3 \u2013 Lower Body Focus', headers: ['Exercise', 'Sets', 'Reps', 'Rest'], exercises: [['Lunges', '3', '12/leg', '60s'], ['Glute Bridges', '3', '15', '45s'], ['Leg Press', '3', '12-15', '60s']] },
+        { day: 'Day 4 \u2013 Active Recovery', headers: ['Activity', 'Duration', 'Notes'], exercises: [['Yoga or Pilates', '40 mins', '-'], ['Brisk Walk', '30 mins', '-']] },
+        { day: 'Day 5 \u2013 Upper Body Focus', headers: ['Exercise', 'Sets', 'Reps', 'Rest'], exercises: [['Dumbbell Bench Press', '3', '12-15', '60s'], ['Lat Pulldowns', '3', '12-15', '60s'], ['Shoulder Press', '3', '12-15', '45s']] },
+        { day: 'Day 6 \u2013 High Intensity Cardio', headers: ['Activity', 'Duration', 'Notes'], exercises: [['Rowing or Cycling', '30 mins', 'Moderate pace'], ['Burpees', '10 reps', '3 sets']] },
+        { day: 'Day 7 \u2013 Complete Rest', headers: ['Activity', 'Duration', 'Notes'], exercises: [['Rest & Hydration', '-', '-']] }
     ];
 };
 
@@ -61,7 +61,7 @@ const getTrainingPlan = (goal) => {
  */
 const generateReport = async (data) => {
     const doc = new jsPDF();
-    const { name, age, weight, height, gender, goal, activityLevel, bmi, bmr, tdee, macros } = data;
+    const { name, age, weight, height, gender, goal, activityLevel, bmi, bmr, tdee, macros, aiPlans } = data;
     
     const writeText = (text, y, fontSize = 10, fontStyle = 'normal', x = 20) => {
         doc.setFontSize(fontSize);
@@ -107,6 +107,14 @@ const generateReport = async (data) => {
     let bmiStr = `BMI is approximately ${bmi}, categorizing you in the ${bmiAssessment.toLowerCase()} range according to standard BMI classifications.`;
     cursorY = writeText(bmiStr, cursorY + 5, 10, 'normal', 30);
     
+    if (aiPlans && aiPlans.bodyFat && aiPlans.bodyFat !== 'N/A') {
+        cursorY += 2;
+        doc.setFont('helvetica', 'bold');
+        doc.text('• Estimated Body Fat:', 25, cursorY);
+        let bfStr = `Based on Visual AI analysis, your estimated body fat is around ${aiPlans.bodyFat}.`;
+        cursorY = writeText(bfStr, cursorY + 5, 10, 'normal', 30);
+    }
+    
     cursorY += 6;
     
     doc.setFont('helvetica', 'bold');
@@ -146,9 +154,12 @@ const generateReport = async (data) => {
     cursorY += 5;
     
     let mealIntro = `The meal plan focuses on nutrient-dense foods emphasizing proteins, complex carbohydrates, and healthy fats. Serving sizes are explicitly tailored to your caloric targets.`;
+    if (aiPlans && aiPlans.mealPlan) {
+        mealIntro += ` This plan was custom-generated by AI factoring in your specific physical constraints and dietary preferences.`;
+    }
     cursorY = writeText(mealIntro, cursorY, 10, 'normal');
     
-    const mealPlanData = getMealPlan(goal);
+    const mealPlanData = (aiPlans && aiPlans.mealPlan) ? aiPlans.mealPlan : getMealPlan(goal);
 
     doc.autoTable({
         startY: cursorY + 2,
@@ -184,8 +195,13 @@ const generateReport = async (data) => {
     doc.setFontSize(12);
     doc.text(`7-Day Training Plan (${displayGoalText} Focus)`, 20, cursorY);
     cursorY += 6;
-    
-    const trainingPlanData = getTrainingPlan(goal);
+    let trainIntro = `The training plan incorporates strength training to build muscle and cardio exercises to aid in fat loss.`;
+    if (aiPlans && aiPlans.trainingPlan) {
+        trainIntro += ` It has been specifically designed to accommodate your logged specific constraints and goals.`;
+    }
+    cursorY = writeText(trainIntro, cursorY, 10, 'normal');
+
+    const trainingPlanData = (aiPlans && aiPlans.trainingPlan) ? aiPlans.trainingPlan : getTrainingPlan(goal);
 
     // Render individual daily tables for the exact structured look
     for (const d of trainingPlanData) {
@@ -200,7 +216,7 @@ const generateReport = async (data) => {
         
         doc.autoTable({
             startY: cursorY + 2,
-            head: [['Exercise', 'Sets', 'Reps', 'Rest']],
+            head: [d.headers || ['Exercise', 'Sets', 'Reps', 'Rest']],
             body: d.exercises,
             theme: 'grid',
             styles: { fontSize: 9, cellPadding: 2, textColor: [50,50,50], font: 'helvetica', valign: 'middle' },

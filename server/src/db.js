@@ -37,6 +37,28 @@ function initializeSchema() {
       report_url TEXT,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )
+  `, (err) => {
+    if (!err) {
+      // Safely attempt to add the AI plans column in case table exists
+      db.run("ALTER TABLE submissions ADD COLUMN ai_plans TEXT", (e) => {
+          // ignore error if column already exists
+      });
+      db.run("ALTER TABLE submissions ADD COLUMN macros TEXT", (e) => {
+          // ignore error if column already exists
+      });
+    }
+  });
+
+  db.run(`
+    CREATE TABLE IF NOT EXISTS client_daily_logs (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      client_id INTEGER,
+      log_date TEXT,
+      meals_checked TEXT,
+      workout_completed BOOLEAN,
+      hydration_ml INTEGER,
+      FOREIGN KEY(client_id) REFERENCES submissions(id)
+    )
   `);
 }
 

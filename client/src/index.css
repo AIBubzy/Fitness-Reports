@@ -6,6 +6,35 @@
   --neon-blue: #00f2ff;
   --neon-purple: #bc13fe;
   --neon-pink: #ff00bd;
+  
+  --background: 0 0% 4%;
+  --foreground: 0 0% 98%;
+  --muted: 0 0% 12%;
+  --muted-foreground: 0 0% 65%;
+
+  /* Neon brand */
+  --neon-cyan: oklch(0.85 0.19 195);
+  --neon-violet: oklch(0.68 0.24 295);
+  --neon-emerald: oklch(0.78 0.18 165);
+  --neon-amber: oklch(0.82 0.17 75);
+
+  /* Glass */
+  --glass: oklch(1 0 0 / 4%);
+  --glass-strong: oklch(1 0 0 / 8%);
+  --glass-border: oklch(1 0 0 / 10%);
+
+  /* Macro nutrients */
+  --macro-protein: oklch(0.78 0.18 165);    /* emerald */
+  --macro-carbs: oklch(0.82 0.17 75);       /* amber */
+  --macro-fats: oklch(0.68 0.24 295);       /* violet */
+  --macro-water: oklch(0.85 0.19 215);      /* sky cyan */
+
+  /* Signature gradients */
+  --gradient-hero: linear-gradient(135deg, oklch(0.85 0.19 195) 0%, oklch(0.68 0.24 295) 100%);
+  --shadow-glass: 0 8px 32px oklch(0 0 0 / 35%), inset 0 1px 0 oklch(1 0 0 / 6%);
+
+  /* Motion */
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 body {
@@ -62,3 +91,27 @@ h1, h2, h3, h4, .font-heading {
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
+
+@layer components {
+  .glass {
+    background: var(--glass);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-glass);
+  }
+
+  .text-gradient-hero {
+    background: var(--gradient-hero);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+@keyframes float-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-float-up { animation: float-up 0.5s var(--ease-smooth) both; }

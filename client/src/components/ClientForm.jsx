@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import { CheckCircle2, AlertCircle, Loader2, Sparkles, User, Scale, Ruler, Target, Activity as ActivityIcon } from 'lucide-react'
+import { CheckCircle2, AlertCircle, Loader2, Sparkles, User, Scale, Ruler, Target, Activity as ActivityIcon, Camera, ShieldCheck } from 'lucide-react'
 import axios from 'axios'
 
 export default function ClientForm() {
@@ -15,6 +15,7 @@ export default function ClientForm() {
         injuries: '',
         email: ''
     })
+    const [photo, setPhoto] = useState(null)
 
     const [status, setStatus] = useState('idle') // idle, loading, success, error
     const [result, setResult] = useState(null)
@@ -28,7 +29,13 @@ export default function ClientForm() {
         e.preventDefault()
         setStatus('loading')
         try {
-            const resp = await axios.post('/api/submit', formData)
+            const submitData = new FormData();
+            Object.keys(formData).forEach(key => submitData.append(key, formData[key]));
+            if (photo) submitData.append('photo', photo);
+
+            const resp = await axios.post('/api/submit', submitData, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            })
             setResult(resp.data)
             setStatus('success')
         } catch (err) {
@@ -260,6 +267,40 @@ export default function ClientForm() {
                         placeholder="Any injuries, allergies, or medical limitations? (Optional)"
                         className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-primary-pink h-24 transition-all"
                     />
+                </div>
+
+                {/* Physique Photo Upload */}
+                <div className="md:col-span-2 glass-card p-6 relative overflow-hidden border border-white/5">
+                    <div className="absolute top-0 left-0 w-1 h-full bg-primary-cyan"></div>
+                    <div className="flex items-center gap-3 mb-4">
+                        <Camera className="text-primary-cyan" size={20} />
+                        <h3 className="font-heading font-bold uppercase tracking-wider text-sm">Visual AI Analysis (Optional)</h3>
+                    </div>
+                    
+                    <div className={`border-2 border-dashed ${photo ? 'border-primary-cyan bg-primary-cyan/5' : 'border-white/10 hover:bg-white/5'} rounded-2xl p-6 text-center cursor-pointer transition-all relative group`}>
+                        <input 
+                            type="file" 
+                            accept="image/*" 
+                            onChange={(e) => setPhoto(e.target.files[0])} 
+                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" 
+                        />
+                        <div className="flex flex-col items-center gap-3 pointer-events-none">
+                            <Camera size={32} className={photo ? "text-primary-cyan" : "text-white/20 group-hover:text-white/40 transition-colors"} />
+                            <p className="font-bold text-white tracking-wide">
+                                {photo ? photo.name : "Tap to upload physique photo"}
+                            </p>
+                            <p className="text-xs text-white/50 max-w-md mx-auto leading-relaxed">
+                                For an accurate AI body-fat estimation, men should preferably wear shorts; women should wear form-fitting activewear (e.g., sports bra and shorts).
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div className="mt-4 flex items-start gap-3 bg-white/5 rounded-xl p-3 border border-white/10">
+                        <ShieldCheck size={16} className="text-primary-cyan shrink-0 mt-0.5" />
+                        <p className="text-xs text-white/60 leading-relaxed">
+                            <strong className="text-white/90">Privacy Protocol:</strong> Images are processed securely for real-time AI estimation and instantly purged. They will never be shared, saved, or distributed externally.
+                        </p>
+                    </div>
                 </div>
 
                 {/* Submit */}

@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Activity, LayoutDashboard, Send } from 'lucide-react'
+import { Routes, Route, Link, useLocation } from 'react-router-dom'
 import ClientForm from './components/ClientForm'
 import Dashboard from './components/Dashboard'
+import ClientPortal from './pages/ClientPortal'
 
-export default function App() {
-    const [view, setView] = useState('form')
+function AdminApp() {
+    const location = useLocation()
+    const view = location.pathname === '/admin' ? 'dashboard' : 'form'
 
     return (
         <div className="min-h-screen bg-background text-white selection:bg-primary-blue selection:text-black">
@@ -21,46 +24,37 @@ export default function App() {
                 </div>
 
                 <div className="flex gap-4">
-                    <button
-                        onClick={() => setView('form')}
+                    <Link
+                        to="/"
                         className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${view === 'form' ? 'bg-primary-blue text-black font-semibold' : 'hover:bg-white/10'}`}
                     >
                         <Send size={18} />
                         <span className="hidden sm:inline">Assessment</span>
-                    </button>
-                    <button
-                        onClick={() => setView('dashboard')}
+                    </Link>
+                    <Link
+                        to="/admin"
                         className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${view === 'dashboard' ? 'bg-primary-purple text-white font-semibold shadow-neon-purple' : 'hover:bg-white/10'}`}
                     >
                         <LayoutDashboard size={18} />
                         <span className="hidden sm:inline">Admin</span>
-                    </button>
+                    </Link>
                 </div>
             </nav>
 
             <main className="pt-32 pb-20 px-6 max-w-7xl mx-auto">
                 <AnimatePresence mode="wait">
-                    {view === 'form' ? (
-                        <motion.div
-                            key="form"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.4 }}
-                        >
-                            <ClientForm />
-                        </motion.div>
-                    ) : (
-                        <motion.div
-                            key="dashboard"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.4 }}
-                        >
-                            <Dashboard />
-                        </motion.div>
-                    )}
+                    <Routes location={location} key={location.pathname}>
+                        <Route path="/" element={
+                            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.4 }}>
+                                <ClientForm />
+                            </motion.div>
+                        } />
+                        <Route path="/admin" element={
+                            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.4 }}>
+                                <Dashboard />
+                            </motion.div>
+                        } />
+                    </Routes>
                 </AnimatePresence>
             </main>
 
@@ -70,5 +64,14 @@ export default function App() {
                 <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-primary-purple/10 blur-[120px] rounded-full" />
             </div>
         </div>
+    )
+}
+
+export default function App() {
+    return (
+        <Routes>
+            <Route path="/client/:id/*" element={<ClientPortal />} />
+            <Route path="*" element={<AdminApp />} />
+        </Routes>
     )
 }
