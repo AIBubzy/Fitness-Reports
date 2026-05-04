@@ -35,3 +35,19 @@ A professional, futuristic web-based system for personal trainers to automate cl
 ## Credentials Setup
 - **Google Drive**: You'll need to create a project in the [Google Cloud Console](https://console.cloud.google.com/), enable the Drive API, and set up OAuth2 credentials.
 - **Email**: For testing, you can use [Ethereal Email](https://ethereal.email/) credentials. For production, use a service like SendGrid or Gmail SMTP.
+
+## AI Features (In Progress)
+
+- **AI Protocol Generator**
+  - Generates strict 7-day meal and training plans using GPT-4o
+  - Outputs structured JSON for frontend rendering
+  - Stores results in `ai_plans` column
+
+- **Physique Analysis (Vision)**
+  - Accepts uploaded physique image
+  - Estimates body fat percentage using vision model
+  - Used to refine calorie and macro targets
+
+- **Client Portal Integration**
+  - AI plans rendered dynamically in Client Portal UI
+  - Macro breakdown visualised via custom components (AdherenceRing, MacroBar)

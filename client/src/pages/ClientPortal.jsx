@@ -26,20 +26,20 @@ export default function ClientPortal() {
         const { name, goal, aiPlans, macros } = res.data.data;
         
         // Safety Fallback (for old static plans without AI generation strings)
-        const mealsSafe = aiPlans?.mealPlan ? aiPlans.mealPlan[0].slice(1).map((m, i) => ({
+        const mealsSafe = aiPlans?.mealPlan?.[0] ? aiPlans.mealPlan[0].slice(1).map((m, i) => ({
             id: `meal-${i}`, type: i === 0 ? "Breakfast" : i === 1 ? "Snack 1" : i === 2 ? "Lunch" : i === 3 ? "Snack 2" : "Dinner",
             name: m, status: "pending", target: "Macros aligned"
         })) : todaysMeals;
         
-        const workoutSafe = aiPlans?.trainingPlan ? {
-            id: "w1", title: aiPlans.trainingPlan[0].day, focus: goal.replace('_',' '), duration: "45-60 min", status: "pending",
+        const workoutSafe = aiPlans?.trainingPlan?.[0] ? {
+            id: "w1", title: aiPlans.trainingPlan[0].day, focus: (goal || '').replace('_',' '), duration: "45-60 min", status: "pending",
             movements: aiPlans.trainingPlan[0].exercises.map((ex, j) => ({ id: `ex-${j}`, name: ex[0], type: "strength", target: `${ex[1]} sets x ${ex[2]}` }))
         } : todaysWorkout;
 
         const calParams = { consumed: 0, target: macros?.calories || 2000 };
 
         setClientData({
-            profile: { firstName: name.split(' ')[0], goal: goal.replace('_', ' ').toUpperCase(), phase: "PHASE 1" },
+            profile: { firstName: name.split(' ')[0], goal: (goal || 'General').replace('_', ' ').toUpperCase(), phase: "PHASE 1" },
             insight: `Based on Visual AI analysis, your estimated body fat is around ${aiPlans?.bodyFat || 'N/A'}. Stick to the ${calParams.target}kcal target.`,
             adherence: { todayScore: 0, streak: 0, weekScore: 0, tier: 'unranked' },
             dailyTargets: {
